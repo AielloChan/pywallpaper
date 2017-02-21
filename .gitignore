@@ -1,0 +1,9 @@
+# ---> VisualStudioCode
+.vscode
+
+# ---> PyCharm
+.idea
+
+# ---> This Project
+# Some additional note
+note.md
