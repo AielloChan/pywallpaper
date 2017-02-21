@@ -84,6 +84,7 @@ python main.py
 | "name"                 | 获取 `name` 的值，也就是 `baidu`           |  
 | "data [0] url"         | 获取 `data` 数组中索引为 `0` 的元素的 `url` 字段值，此处即获得了 `http://baidu.com/xxx1.jpg` 这个 URL|
 | "data [0~2] url"       | 获取 `data` 数组中索引为 `0` 到 `2` 的**随机数**元素的 `url` 字段值，在这里我们只能确定他最终获取的是一个 URL|
+| "data [~] url"         | 获取 `data` 数组中小于其长度的**随机数**索引对应元素的 `url` 字段值，在这里我们只能确定他最终获取的是一个 URL|
 
 简单吧？
 
