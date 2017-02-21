@@ -249,7 +249,11 @@ if __name__ == "__main__":
 #   # Get picture url from json with the special syntax
     picURL = FindInJson(obj, ReadJSON(config, 'picture_url_locat'))
     # Concat url can avoid the different between "http://xxx.com/xx.jpg" and "/xx.jpg"
-    picURL = ConcatURL(api, picURL)
+    pic_host = ReadJSON(config, 'picture_url_locat', important=False)
+    if pic_host != "":
+        picURL = ConcatURL(pic_host, picURL)
+    else:
+        picURL = ConcatURL(api, picURL)
 
     picName = ""
     # get nameType from config
