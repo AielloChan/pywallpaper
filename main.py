@@ -124,21 +124,29 @@ def WriteFile(path, fileName, mode, data):
 # ReadJSON is a pack of read json
 # If important is True, get item failed will lead program to exit
 # If important is False, get item failed will return '' and would not lead program to exit
-def ReadJSON(jsonObj, key, important=True):
+def ReadJSON(jsonObj, key, important=True, isRandom=False):
     if isinstance(jsonObj, dict):
         if jsonObj.has_key(key):
             return jsonObj[key]
         else:
             if important:
-                Log("Can't get %s in JSON object %s!" % (key, json), 1, True)
+                Log("Can't get %s in JSON object!" % key, 1, True)
             else:
                 return ''
     else:
+        if len(jsonObj) < 1:
+            if important:
+                Log("The array length is 0", 1, True)
+            else:
+                return ''
+        if isRandom:
+            key = random.randrange(0, len(jsonObj))
+            return jsonObj[key]
         if not isinstance(key, int):
-            Log("Can't use a string key to access array item.key: %s,json: %s" % (key, json), 1, True)
+            Log("Can't use a string key to access array item.key: %s" % key, 1, True)
         if key > len(jsonObj) - 1:
             if important:
-                Log("The index is to large.key: %s,json: %s" % (key, json), 1, True)
+                Log("The index is to large.key: %s" % key, 1, True)
             else:
                 return ''
         else:
@@ -185,7 +193,11 @@ def FindInJson(json, location):
     steps = location.split(' ')
     restObj = json
     for step in steps:
-        if step.startswith('[') and step.endswith(']'):
+        isRandomm = False
+        if step == "[" + INDEX_FILL_CHAR + "]":
+           step = 0
+           isRandomm = True
+        elif step.startswith('[') and step.endswith(']'):
             index = step.strip("[").rstrip("]")
             if index.find(INDEX_FILL_CHAR) != -1:
                 indexList = index.split(INDEX_FILL_CHAR)
@@ -201,7 +213,7 @@ def FindInJson(json, location):
                     step = 0
             else:
                 step = int(index)
-        restObj = ReadJSON(restObj, step)
+        restObj = ReadJSON(restObj, step, isRandomm)
     return restObj
 
 # set wallpaper at windows
