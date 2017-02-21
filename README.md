@@ -1,5 +1,7 @@
 # Dese
 
+![Dese](https://raw.githubusercontent.com/AielloChan/pywallpaper/master/logo.ico)
+
 `Windows` 上可自动设置背景桌面的小程序。可以将大多数的 `JSON API` 中的图片链接作为自己的 Windows wallpaper，
 现已经包含以下网站图片的配置文件：[bing每日一图](https://bing.com)、[百度图片](https://images.baidu.com)、
 [Unsplash](https://unsplash.com)、[爱壁纸](http://aibizhi.com)。
