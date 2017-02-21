@@ -37,6 +37,7 @@ DEFAULT_CONFIG = ('{\n'
 # Because the path is different between run this script and run pyinstaller file
 # this func can return the right path
 def CurrentDir():
+    return "C:/Software/PyInstaller/main/dist"
     path = sys.argv[0]
     if path.endswith('.exe'):
         return path[:path.rindex('\\')]
@@ -49,7 +50,10 @@ def CurrentDir():
 def ConcatURL(leftURL, rightURL):
     if rightURL.startswith('http'):
         return rightURL
-    host = leftURL[:leftURL.find('/', 7)]
+    host = leftURL
+    slashIndex = leftURL.find('/', 7)
+    if slashIndex != -1:
+        host = leftURL[:slashIndex]
     if rightURL.startswith('/'):
         return host + rightURL
     else:
@@ -194,7 +198,7 @@ def FindInJson(json, location):
     restObj = json
     for step in steps:
         isRandomm = False
-        if step == "[" + INDEX_FILL_CHAR + "]":
+        if step == ("[" + INDEX_FILL_CHAR + "]"):
            step = 0
            isRandomm = True
         elif step.startswith('[') and step.endswith(']'):
@@ -213,25 +217,28 @@ def FindInJson(json, location):
                     step = 0
             else:
                 step = int(index)
-        restObj = ReadJSON(restObj, step, isRandomm)
+        restObj = ReadJSON(restObj, step, isRandom=isRandomm)
     return restObj
 
 # set wallpaper at windows
 def SetWallpaper(imagePath, fillType='fill'):
+    tile = "0"
+    if fillType == "tile":
+        fillType = "center"
+        tile = "1"
     fillDict = {
-        "fill": 10,
-        "fit": 6,
-        "Stretch": 2,
-        "tile": 0,
-        "center": 0,
-        "span": 22
+        "fill": "10",
+        "fit": "6",
+        "Stretch": "2",
+        "center": "0",
+        "span": "22"
     }
     style = fillDict[fillType]
     key = win32api.RegOpenKeyEx(win32con.HKEY_CURRENT_USER,
                                 r"Control Panel\Desktop", 0,
                                 win32con.KEY_SET_VALUE)
-    win32api.RegSetValueEx(key, "WallpaperStyle", 0, win32con.REG_SZ, '10')
-    win32api.RegSetValueEx(key, "TileWallpaper", 0, win32con.REG_SZ, "0")
+    win32api.RegSetValueEx(key, "WallpaperStyle", 0, win32con.REG_SZ, style)
+    win32api.RegSetValueEx(key, "TileWallpaper", 0, win32con.REG_SZ, tile)
     win32gui.SystemParametersInfo(
         win32con.SPI_SETDESKWALLPAPER, imagePath, 1 + 2)
 
@@ -261,7 +268,7 @@ if __name__ == "__main__":
 #   # Get picture url from json with the special syntax
     picURL = FindInJson(obj, ReadJSON(config, 'picture_url_locat'))
     # Concat url can avoid the different between "http://xxx.com/xx.jpg" and "/xx.jpg"
-    pic_host = ReadJSON(config, 'picture_url_locat', important=False)
+    pic_host = ReadJSON(config, 'picture_url_host', important=False)
     if pic_host != "":
         picURL = ConcatURL(pic_host, picURL)
     else:
