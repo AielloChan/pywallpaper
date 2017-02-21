@@ -9,6 +9,7 @@
 - [百度图片](https://images.baidu.com)
 - [Unsplash](https://unsplash.com)
 - [爱壁纸](http://aibizhi.com)
+- [NationalGeographic国家地理](http://www.nationalgeographic.com/)
 
 虽然现在网上各种设置背景的软件数不胜数，但是又有几个是不会在后台悄悄运行或者跳出广告的呢？
 开发这个软件一是为了在学 `Python` 时练手，增加动力；二是想要一个可配置的、具有大量高质
@@ -185,3 +186,16 @@ python main.py
     "picture_postfix": ""
   }
   ```
+- [NationalGeographic国家地理](http://www.nationalgeographic.com/)
+
+ ```json
+ {
+    "api_url": "http://www.nationalgeographic.com/photography/photo-of-the-day/_jcr_content/.gallery.json",
+    "picture_url_locat": "items [~] sizes 2048",
+    "picture_url_host": "http://yourshot.nationalgeographic.com",
+    "name_type": "time",
+    "wallpaper_fill_type": "center",
+    "picture_store_path": "C:/Data/pic/Wallpaper",
+    "picture_postfix": ".jpg"
+ }
+ ```
