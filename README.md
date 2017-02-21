@@ -2,12 +2,17 @@
 
 ![Dese](https://raw.githubusercontent.com/AielloChan/pywallpaper/master/logo.ico)
 
-`Windows` 上可自动设置背景桌面的小程序。可以将大多数的 `JSON API` 中的图片链接作为自己的 Windows wallpaper，
-现已经包含以下网站图片的配置文件：[bing每日一图](https://bing.com)、[百度图片](https://images.baidu.com)、
-[Unsplash](https://unsplash.com)、[爱壁纸](http://aibizhi.com)。
+`Windows` 上可自动设置背景桌面的小程序。可以将大多数的 `JSON API` 中的图片链接作为自己
+的 Windows wallpaper，现已经包含以下网站图片的配置文件：
 
-虽然现在网上各种设置背景的软件数不胜数，但是又有几个是不会在后台悄悄运行或者跳出广告的呢？开发这个软件一是为了在学
-`Python` 时练手，增加动力；二是想要一个可配置的、具有大量高质图片资源、运行完就干干净净退出的程序。
+- [bing每日一图](https://bing.com)
+- [百度图片](https://images.baidu.com)
+- [Unsplash](https://unsplash.com)
+- [爱壁纸](http://aibizhi.com)
+
+虽然现在网上各种设置背景的软件数不胜数，但是又有几个是不会在后台悄悄运行或者跳出广告的呢？
+开发这个软件一是为了在学 `Python` 时练手，增加动力；二是想要一个可配置的、具有大量高质
+图片资源、运行完就干干净净退出的程序。
 
 *注：不可将其用于任何的商业目的！*
 
@@ -36,6 +41,7 @@ python main.py
 | -------------                                 |:-------------                                          | -----:                                                  |
 | [api_url](#api_url)                           | 任意                                                    | 一个可以获得 `JSON` 格式的 API URL                       |
 | [picture_url_locat](#picture_url_locat)       | "key"、"[number]"、"[start~end]"                        | 一种 `JSON` 位置的表述方式                               | 
+| [picture_url_host](#picture_url_host)         | host 如 "http://baidu.com"                              | 指定下载图片时所使用的 host                              | 
 | [name_type](#name_type)                       | "url"、"time"、"json"                                   | 图片文件的命名方式                                       |
 | [name_exclude_char](#name_exclude_char)       | 任意字符                                                | 图片名称中需要去掉的字符                                  |
 | [name_fill_char](#name_fill_char)             | 任意字符                                                | 去掉字符时可选择用此值来填充                              | 
@@ -81,11 +87,18 @@ python main.py
 
 简单吧？
 
+## picture_url_host
+
+当 `JSON` 中的下载链接是以 `/` 开头，并没有 `host` 信息的，程序会自动将当前 `API` 的 
+`host` 添加在其前面组成一个完整的下载链接。但是有的下载链接 `host` 并不是当前 `API` 的
+ `host`，这个时候我们就需要手动指定这个 `host` 值，也就是 `picture_url_host` 的值。
+
 ## name_type
 
 命名的类型，总共有三种方式：`url`、`json`、`time`。
 - `url` 是截取图片下载链接最后
-  一部分作为文件名（在最后一个`/`之后，`?`之前），如选择的图片链接为 `http://baidu.com/xxx1.jpg?size=2k`，则截取到的文件名为 `xxx1.jpg`。
+  一部分作为文件名（在最后一个`/`之后，`?`之前），如选择的图片链接为 
+  `http://baidu.com/xxx1.jpg?size=2k`，则截取到的文件名为 `xxx1.jpg`。
 - `json` 则接收和 `picture_url_locat` 字段一样的参数，从 `json` 中获取文件名
 - `time` 则是以下载图片时的时间（时间戳）作为文件名。
 
@@ -98,7 +111,8 @@ python main.py
 
 ## name_fill_char
 
-此字段在 `name_exclude_char` 字段填写后生效，当 `name_exclude_char` 中规定的字符被剔除时，会使用当前字段定义的字符来填充。如：
+此字段在 `name_exclude_char` 字段填写后生效，当 `name_exclude_char` 中规定的字符被剔
+除时，会使用当前字段定义的字符来填充。如：
 
 原始文件名为：`12315*43@2.jpg`，`name_exclude_char` 值为 `"*@"`，`name_fill_char` 
 值为 `__`，则最为后的文件名为 `12315__43__2.jpg`
@@ -109,7 +123,8 @@ python main.py
 
 ## picture_store_path
 
-图片的存放路径，默认为 `pics`， 绝对目录以及相对目录均可。如 `E:/wallpaper`。*注：*路径用 `/` 分隔而不是 `\`。
+图片的存放路径，默认为 `pics`， 绝对目录以及相对目录均可。如 `E:/wallpaper`。*注：
+*路径用 `/` 分隔而不是 `\`。
 
 ## picture_postfix
 
