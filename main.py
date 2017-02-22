@@ -37,7 +37,6 @@ DEFAULT_CONFIG = ('{\n'
 # Because the path is different between run this script and run pyinstaller file
 # this func can return the right path
 def CurrentDir():
-    return "C:/Software/PyInstaller/main/dist"
     path = sys.argv[0]
     if path.endswith('.exe'):
         return path[:path.rindex('\\')]
